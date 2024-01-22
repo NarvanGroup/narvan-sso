@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Api\V1\Authentication;
 
+use App\Enums\PlatformsEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class OtpRequest extends FormRequest
 {

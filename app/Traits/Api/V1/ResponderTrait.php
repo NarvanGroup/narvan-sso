@@ -153,15 +153,14 @@ trait ResponderTrait
      */
     public function responseSuccessful(?string $message = null, int $status = 200): JsonResponse
     {
-        dd($message);
         if ($message === null) {
             $message = trans('response.successful');
         }
-        dd($message);
+
         return response()->json([
             'success' => $this->isStatusTrue($status),
             'message' => $message,
-        ], $status,['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);
+        ], $status);
     }
 
     /**

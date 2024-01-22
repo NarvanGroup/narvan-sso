@@ -14,6 +14,8 @@ use App\Models\Api\V1\Chart;
 use App\Models\Api\V1\User;
 use App\Repositories\Api\V1\User\UserRepository;
 use App\Traits\Api\V1\ResponderTrait;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 
@@ -35,13 +37,14 @@ class AuthenticationController extends Controller
     {
         $user = User::where('mobile', $request->mobile)->first();
 
-        if (!$user || !Hash::check($request->otp, $user->otp)) {
+        if (!$user || $user->otp === null || !Hash::check($request->otp, $user->otp)) {
             return $this->responseForbidden('Unauthorised.');
         }
 
-        $user->update(['otp' => '']);
+        $user->update(['otp' => null]);
 
-        $token = $user->createToken($request->header('user-agent'))->plainTextToken;
+        $token = $user->createToken($request->header('user-agent'),['*'], now()->addWeek()->toDateTime())->plainTextToken;
+
         $userData = new UserResource($user);
 
         return $this->response([
@@ -59,11 +62,11 @@ class AuthenticationController extends Controller
     {
         $user = User::where('mobile', $request->mobile)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (!$user || $user->password === null || !Hash::check($request->password, $user->password)) {
             return $this->respondForbidden('Unauthorised.');
         }
 
-        $token = $user->createToken($request->header('user-agent'))->plainTextToken;
+        $token = $user->createToken($request->header('user-agent'),['*'], Carbon::now()->toDateTime())->plainTextToken;
         $userData = new UserResource($user);
 
         return $this->response([

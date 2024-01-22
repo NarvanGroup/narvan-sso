@@ -25,7 +25,7 @@ class AddressService extends Controller
             ];
         });
 
-        return $this->responseSuccessful($provinces);
+        return $this->responseShow($provinces);
     }
 
     public function getCities(int $provinceId): JsonResponse
@@ -36,6 +36,6 @@ class AddressService extends Controller
                 'name' => $province->name
             ];
         });
-        return $this->responseSuccessful($cities);
+        return $this->responseShow($cities);
     }
 }

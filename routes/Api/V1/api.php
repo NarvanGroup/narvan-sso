@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\AddressController;
 use App\Http\Controllers\Api\V1\AuthenticationController;
 use App\Http\Controllers\Api\V1\CardController;
 use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\SocialMediaController;
 use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +35,8 @@ Route::middleware(['auth:sanctum', 'role.check'])->group(static function () {
     // Users route resources
     Route::post('users/authentication', [AuthenticationController::class, 'authentication']);
     Route::controller(UserController::class)->prefix('users')->group(static function () {
-        Route::get('profile', 'profile');
+        Route::post('profile', 'profile');
+        Route::post('logout', 'logout');
         Route::post('resetPassword', 'resetPassword');
     });
     Route::apiResource('users', UserController::class);
@@ -44,6 +46,8 @@ Route::middleware(['auth:sanctum', 'role.check'])->group(static function () {
         Route::get('getProvinces', 'getProvinces');
         Route::get('getCities/{provinceId}', 'getCities');
     });
+    Route::apiResource('social-media', SocialMediaController::class);
+
     Route::apiResource('addresses', AddressController::class);
 
     //Cards route resources

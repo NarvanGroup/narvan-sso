@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Api\V1\Authentication;
 
+use App\Enums\PlatformsEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class OtpLoginRequest extends FormRequest
 {
@@ -17,13 +19,13 @@ class OtpLoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, Rule|array|string>
      */
     public function rules(): array
     {
         return [
-            'mobile' => ['required','ir_mobile:zero','exists:users'],
-            'otp' => ['required','numeric','digits:5']
+            'mobile'   => ['required', 'ir_mobile:zero', 'exists:users'],
+            'otp'      => ['required', 'numeric', 'digits:5']
         ];
     }
 }

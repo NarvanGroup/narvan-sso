@@ -56,6 +56,12 @@ class UserController extends Controller
         return $this->response(new UserResource(auth()->user()->with('addresses', 'cards', 'wallets')->first()));
     }
 
+    public function logout(): JsonResponse
+    {
+        auth()->user()->currentAccessToken()->delete();
+        return $this->responseSuccessful('Longed out successfully');
+    }
+
     public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
         auth()->user()->update(['password' => Hash::make($request->new_password)]);
