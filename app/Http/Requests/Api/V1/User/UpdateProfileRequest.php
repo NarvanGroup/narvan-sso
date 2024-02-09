@@ -42,6 +42,10 @@ class UpdateProfileRequest extends FormRequest
                 'string',
                 'max:255',
             ],
+            'gender' => [
+                'nullable',
+                'boolean',
+            ],
             'email' => [
                 'nullable',
                 'string',

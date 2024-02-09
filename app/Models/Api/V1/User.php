@@ -45,6 +45,7 @@ class User extends Authenticatable implements Wallet, WalletFloat
         'father_name',
         'email',
         'mobile',
+        'gender',
         'dob',
         'nid',
         'password',

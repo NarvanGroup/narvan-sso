@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('father_name', 255)->nullable();
             $table->string('nid', 10)->unique()->nullable();
             $table->date('dob')->nullable();
+            $table->boolean('gender')->nullable();
             $table->string('mobile')->unique();
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
