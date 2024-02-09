@@ -97,6 +97,11 @@ class User extends Authenticatable implements Wallet, WalletFloat
         return $this->hasMany(Card::class);
     }
 
+    public function socialMedia(): HasMany
+    {
+        return $this->hasMany(SocialMedia::class);
+    }
+
     /**
      * @return bool
      */

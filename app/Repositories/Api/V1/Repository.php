@@ -29,10 +29,10 @@ class Repository implements RepositoryInterface
     /**
      * Returns specific model by given id
      *
-     * @param int $id
+     * @param string $id
      * @return null|Model
      */
-    public function find(int $id): Model|null
+    public function find(string $id): Model|null
     {
         return $this->model->query()->findOrFail($id);
     }
@@ -65,10 +65,10 @@ class Repository implements RepositoryInterface
      * Updates a given model with given data
      *
      * @param array $data
-     * @param int $id
+     * @param string $id
      * @return bool
      */
-    public function update(array $data, int $id): bool
+    public function update(array $data, string $id): bool
     {
         return $this->model->query()->findOrFail($id)?->update($data);
     }
@@ -76,10 +76,10 @@ class Repository implements RepositoryInterface
     /**
      * Delete given model instance
      *
-     * @param int $id
+     * @param string $id
      * @return bool
      */
-    public function delete(int $id): bool
+    public function delete(string $id): bool
     {
         return $this->model->query()->findOrFail($id)?->delete();
     }
@@ -145,13 +145,13 @@ class Repository implements RepositoryInterface
 
     /**
      * find and return model by id
-     * @param int $id
+     * @param string $id
      * @param array $columns
      * @param array $relations
      * @return Model
      * @throws ModelNotFoundException
      */
-    public function findById(int $id, array $columns = ['*'], array $relations = []): Model
+    public function findById(string $id, array $columns = ['*'], array $relations = []): Model
     {
         return $this->findByCriteria(compact('id'), $columns, $relations);
     }
@@ -182,7 +182,7 @@ class Repository implements RepositoryInterface
      *
      * @return Model|null
      */
-    public function getLatest(): ?Model
+    public function getLatest(): Model|null
     {
         return $this->model->latest()->first();
     }

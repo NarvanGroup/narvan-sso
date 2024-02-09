@@ -35,6 +35,7 @@ Route::middleware(['auth:sanctum', 'role.check'])->group(static function () {
     // Users route resources
     Route::post('users/authentication', [AuthenticationController::class, 'authentication']);
     Route::controller(UserController::class)->prefix('users')->group(static function () {
+        Route::put('profile', 'update');
         Route::post('profile', 'profile');
         Route::post('logout', 'logout');
         Route::post('resetPassword', 'resetPassword');

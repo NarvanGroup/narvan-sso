@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\User\ResetPasswordRequest;
+use App\Http\Requests\Api\V1\User\UpdateProfileRequest;
 use App\Http\Resources\Api\V1\User\UserResource;
 use App\Models\Api\V1\User;
 use App\Repositories\Api\V1\User\UserRepository;
@@ -39,10 +40,11 @@ class UserController extends Controller
         return $this->responseShow($this->userRepository->find($user->id));
     }
 
-    public function update(Request $request, User $user): JsonResponse
+    public function update(UpdateProfileRequest $request): JsonResponse
     {
-        $this->userRepository->update($request->all(), $user->id);
-        return $this->responseUpdated();
+        $user = auth()->user();
+        $this->userRepository->update($request->validated(), $user->id);
+        return $this->responseUpdated($user->fresh());
     }
 
     public function destroy(User $user): JsonResponse
@@ -53,7 +55,7 @@ class UserController extends Controller
 
     public function profile(): JsonResponse
     {
-        return $this->response(new UserResource(auth()->user()->with('addresses', 'cards', 'wallets')->first()));
+        return $this->response(new UserResource(auth()->user()->with('addresses', 'cards', 'wallets','socialMedia')->first()));
     }
 
     public function logout(): JsonResponse
